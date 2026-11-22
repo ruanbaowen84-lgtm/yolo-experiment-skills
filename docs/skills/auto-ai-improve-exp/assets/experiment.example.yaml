@@ -1,0 +1,26 @@
+# All relative paths are resolved from this file.
+task: detect
+data: datasets/my-dataset/data.yaml
+output: experiments/detection-ablation
+baseline: models/baseline.yaml
+candidates:
+  - id: variant-a
+    model: models/variant-a.yaml
+# framework_root: path/to/YOLO-Master-checkout
+# pretrained: models/common-initialization.pt
+train:
+  device: cpu
+  epochs: 20
+  imgsz: 640
+  batch: 8
+  workers: 0
+  optimizer: SGD
+  patience: 0
+  seed: 0
+  amp: false
+selection:
+  max_candidates: 5
+  min_map_sum_gain: 0.01
+  max_gflops_growth: 0.50
+# Set true only when data.yaml provides a held-out test split.
+final_test: false
